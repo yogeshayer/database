@@ -1,0 +1,25 @@
+@startuml
+
+entity Customer {
+  +customerID : int <<PK>>
+  --
+  customerName : string
+}
+
+entity SaleCar {
+  +VIN : int <<PK>>
+  --
+  carModelID : string <<FK>>
+  customerID : int <<FK>>
+  price : float
+}
+
+entity carModel {
+  +carModelID : (model, year, manufacturer) <<PK>>
+}
+
+' Relationships
+Customer ||--o{ SaleCar : buys
+carModel ||--o{ SaleCar : describes
+
+@enduml
