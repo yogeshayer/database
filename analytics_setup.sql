@@ -110,7 +110,7 @@ VALUES
 ((SELECT inventory_id FROM inventory WHERE vin = 'JM1NDAD70K0123456' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'John' LIMIT 1), '2025-06-12', 34500)
 ON CONFLICT DO NOTHING;
 
--- Add recent sales data for past-year reports
+-- Adds recent sales data for past-year reports
 INSERT INTO vehicle (vin, model_id, plant_id, model_year, color, mileage)
 VALUES
 ('1HGCM82633A99991', (SELECT model_id FROM model WHERE model_name = 'Camry' LIMIT 1), (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1), 2026, 'Blue', 15),
