@@ -111,23 +111,23 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 -- Add recent sales data for past-year reports
-INSERT INTO vehicle (vin, model_id, model_year, color, mileage, plant_id)
+INSERT INTO vehicle (vin, model_id, plant_id, model_year, color, mileage)
 VALUES
-('NEWCAMRY20260001', (SELECT model_id FROM model WHERE model_name = 'Camry' LIMIT 1), 2026, 'Blue', 15, (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1)),
-('NEWRAV420260001', (SELECT model_id FROM model WHERE model_name = 'RAV4' LIMIT 1), 2026, 'White', 20, (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1)),
-('NEWMUST20260001', (SELECT model_id FROM model WHERE model_name = 'Mustang' LIMIT 1), 2026, 'Red', 10, (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1))
+('1HGCM82633A99991', (SELECT model_id FROM model WHERE model_name = 'Camry' LIMIT 1), (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1), 2026, 'Blue', 15),
+('2T1BURHE5JC99992', (SELECT model_id FROM model WHERE model_name = 'RAV4' LIMIT 1), (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1), 2026, 'White', 20),
+('1FAFP45X1XF99993', (SELECT model_id FROM model WHERE model_name = 'Mustang' LIMIT 1), (SELECT plant_id FROM plant WHERE plant_name = 'Dallas Assembly' LIMIT 1), 2026, 'Red', 10)
 ON CONFLICT (vin) DO NOTHING;
 
 INSERT INTO inventory (dealer_id, vin, date_received, date_sold, sticker_price)
 VALUES
-((SELECT dealer_id FROM dealer WHERE dealer_name = 'Lone Star Auto Group' LIMIT 1), 'NEWCAMRY20260001', '2026-01-10', '2026-02-05', 31000),
-((SELECT dealer_id FROM dealer WHERE dealer_name = 'Lone Star Auto Group' LIMIT 1), 'NEWRAV420260001', '2026-01-15', '2026-03-12', 36000),
-((SELECT dealer_id FROM dealer WHERE dealer_name = 'DFW Premier Motors' LIMIT 1), 'NEWMUST20260001', '2026-02-01', '2026-04-02', 48000)
+((SELECT dealer_id FROM dealer WHERE dealer_name = 'Lone Star Auto Group' LIMIT 1), '1HGCM82633A99991', '2026-01-10', '2026-02-05', 31000),
+((SELECT dealer_id FROM dealer WHERE dealer_name = 'Lone Star Auto Group' LIMIT 1), '2T1BURHE5JC99992', '2026-01-15', '2026-03-12', 36000),
+((SELECT dealer_id FROM dealer WHERE dealer_name = 'DFW Premier Motors' LIMIT 1), '1FAFP45X1XF99993', '2026-02-01', '2026-04-02', 48000)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO sale (inventory_id, customer_id, sale_date, sale_price)
 VALUES
-((SELECT inventory_id FROM inventory WHERE vin = 'NEWCAMRY20260001' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'John' LIMIT 1), '2026-02-05', 30500),
-((SELECT inventory_id FROM inventory WHERE vin = 'NEWRAV420260001' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'Sarah' LIMIT 1), '2026-03-12', 35500),
-((SELECT inventory_id FROM inventory WHERE vin = 'NEWMUST20260001' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'Alex' LIMIT 1), '2026-04-02', 47500)
+((SELECT inventory_id FROM inventory WHERE vin = '1HGCM82633A99991' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'John' LIMIT 1), '2026-02-05', 30500),
+((SELECT inventory_id FROM inventory WHERE vin = '2T1BURHE5JC99992' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'Sarah' LIMIT 1), '2026-03-12', 35500),
+((SELECT inventory_id FROM inventory WHERE vin = '1FAFP45X1XF99993' LIMIT 1), (SELECT customer_id FROM customer WHERE first_name = 'Alex' LIMIT 1), '2026-04-02', 47500)
 ON CONFLICT DO NOTHING;
